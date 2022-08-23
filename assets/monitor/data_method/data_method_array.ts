@@ -1,9 +1,9 @@
 import * as cc from 'cc';
 import monitor from '../monitor';
 const { ccclass, property } = cc._decorator;
+import { monitor_trigger_ } from '../monitor_trigger';
 
-/** 通用 */
-export module common {
+export module 默认 {
     /** 初始化数据 */
     class array_init_config {
         constructor(init_?: array_init_config) {
@@ -196,10 +196,7 @@ export module common {
     }
 
     @ccclass('data_method_array_common')
-    export class ccclass_params {
-        @property({ displayName: '目标节点', type: cc.Node })
-        target: cc.Node = null!;
-
+    export class ccclass_params extends monitor_trigger_.event_param {
         @property({ displayName: '回收 item' })
         recycle_b = true;
 
@@ -207,8 +204,8 @@ export module common {
         event_child_update: cc.EventHandler = null!;
     }
 
-    export function on<VT, KT extends keyof VT>(target_: VT, key_: KT, params_: ccclass_params): void {
-        if (!params_.target.children.length!) {
+    export function on<VT, KT extends keyof VT>(target_: VT, key_: KT, node_: cc.Node, params_: ccclass_params): void {
+        if (!node_.children.length!) {
             console.error('不存在子节点');
             return;
         }
@@ -217,14 +214,14 @@ export module common {
         /** 当前数组 */
         let array_as = new array_extend<any>();
         /** item节点 */
-        let item_node = params_.target.children[0]!;
+        let item_node = node_.children[0]!;
 
         // 初始化
         {
             // 初始化数据
             target_[key_] = array_as as any;
             array_as.init({
-                root: params_.target,
+                root: node_,
                 item: item_node,
                 item_update_f: (node, data) => {
                     params_.event_child_update.emit([node, data]);
@@ -247,7 +244,7 @@ export module common {
                     target_[key_] = [...(target_[key_] as any)] as any;
                     // 还原子节点
                     await array_as.destroy();
-                    params_.target.addChild(item_node);
+                    node_.addChild(item_node);
                 },
                 target_
             )
