@@ -554,16 +554,13 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 37
+        "__id__": 41
       },
       {
-        "__id__": 38
+        "__id__": 42
       },
       {
         "__id__": 27
-      },
-      {
-        "__id__": 39
       }
     ],
     "_prefab": null,
@@ -911,6 +908,9 @@
       },
       {
         "__id__": 36
+      },
+      {
+        "__id__": 37
       }
     ],
     "_prefab": null,
@@ -1198,6 +1198,51 @@
     "_id": "7cPArHY6NHWaygxgXJI32K"
   },
   {
+    "__type__": "1bb55QGeg5EALudvHPAkRKg",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 28
+    },
+    "_enabled": true,
+    "__prefab": null,
+    "_data_target": {
+      "__id__": 4
+    },
+    "_data_key_s": "test.test_list_ss",
+    "event": {
+      "__id__": 38
+    },
+    "_id": "89OELfCvVPHIc6rVw0WHWQ"
+  },
+  {
+    "__type__": "monitor_trigger/trigger",
+    "_type_n": 1,
+    "_event_n": 0,
+    "event_param_as": [
+      {
+        "__id__": 39
+      }
+    ]
+  },
+  {
+    "__type__": "data_method_array_common",
+    "recycle_b": true,
+    "event_child_update": {
+      "__id__": 40
+    }
+  },
+  {
+    "__type__": "cc.ClickEvent",
+    "target": {
+      "__id__": 4
+    },
+    "component": "",
+    "_componentId": "0a809zrMNpIUps4j5PLD0zY",
+    "handler": "event_child_update",
+    "customEventData": ""
+  },
+  {
     "__type__": "cc.UITransform",
     "_name": "",
     "_objFlags": 0,
@@ -1256,51 +1301,6 @@
     "_useGrayscale": false,
     "_atlas": null,
     "_id": "9cBPYpa7xOI4jttfASwDVa"
-  },
-  {
-    "__type__": "1bb55QGeg5EALudvHPAkRKg",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 18
-    },
-    "_enabled": true,
-    "__prefab": null,
-    "_data_target": {
-      "__id__": 4
-    },
-    "_data_key_s": "test.test_list_ss",
-    "event": {
-      "__id__": 40
-    },
-    "_id": "e3umM5f8BDuJ0nuCgmIvvo"
-  },
-  {
-    "__type__": "monitor_trigger/trigger",
-    "_type_n": 1,
-    "_event_n": 0,
-    "event_param_as": [
-      {
-        "__id__": 41
-      }
-    ]
-  },
-  {
-    "__type__": "data_method_array_common",
-    "recycle_b": true,
-    "event_child_update": {
-      "__id__": 42
-    }
-  },
-  {
-    "__type__": "cc.ClickEvent",
-    "target": {
-      "__id__": 4
-    },
-    "component": "",
-    "_componentId": "0a809zrMNpIUps4j5PLD0zY",
-    "handler": "event_child_update",
-    "customEventData": ""
   },
   {
     "__type__": "cc.UITransform",
