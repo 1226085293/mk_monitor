@@ -1,6 +1,7 @@
 import * as cc from 'cc';
 import { _decorator, Component, Node } from 'cc';
 import global from '../../global';
+import { resources_head_select_item } from './item/resources_head_select_item';
 const { ccclass, property } = _decorator;
 
 @ccclass('resources_head_select')
@@ -28,12 +29,6 @@ export class resources_head_select extends Component {
     }
     /* ------------------------------- 自定义事件 ------------------------------- */
     event_item_update(node_: cc.Node, value_s_: string): void {
-        cc.assetManager.loadRemote<cc.ImageAsset>(value_s_, { ext: '.png' }, function (err, image_asset) {
-            const sprite_frame = new cc.SpriteFrame();
-            const texture = new cc.Texture2D();
-            texture.image = image_asset;
-            sprite_frame.texture = texture;
-            node_.sprite.spriteFrame = sprite_frame;
-        });
+        node_.getComponent(resources_head_select_item).data = value_s_;
     }
 }

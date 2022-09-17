@@ -68,7 +68,14 @@ export namespace 远程图片 {
                 key_,
                 (value) => {
                     const value_s = String(value);
+                    if (!value_s) {
+                        return;
+                    }
                     cc.assetManager.loadRemote<cc.ImageAsset>(value_s, { ext: '.png' }, function (err, image_asset) {
+                        if (err) {
+                            console.error(err);
+                            return;
+                        }
                         const sprite_frame = new cc.SpriteFrame();
                         const texture = new cc.Texture2D();
                         texture.image = image_asset;

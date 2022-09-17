@@ -282,12 +282,9 @@ export class monitor_trigger extends cc.Component {
 
     /** 根据路径获取数据 */
     private _get_data_from_path(data_: any, path_ss_: string[]): any {
-        let temp: any;
-
         for (let k_n = 0, len_n = path_ss_.length; k_n < len_n; ++k_n) {
-            temp = data_[path_ss_[k_n]];
-            data_ = temp;
-            if (typeof temp !== 'object' || temp === null) {
+            data_ = data_[path_ss_[k_n]];
+            if (typeof data_ !== 'object' || data_ === null) {
                 break;
             }
         }
@@ -303,23 +300,12 @@ export class monitor_trigger extends cc.Component {
         /** 数据路径 */
         const data_path_ss = !this._data_key_s ? [] : this._data_key_s.split('.');
         /** 数据目标 */
-        let data_target = this._user_comp;
-        let temp: any;
-
-        // 获取路径数据，跳过一级非对象路径
-        for (let k_n = 0, len_n = data_path_ss.length; k_n < len_n; ++k_n) {
-            temp = data_target[data_path_ss[k_n]];
-            if (typeof temp !== 'object' || temp === null) {
-                data_target = temp;
-                break;
-            }
-            data_target = temp;
-        }
+        let data_target = this._get_data_from_path(this._user_comp, data_path_ss);
 
         // 更新数据键枚举
         this._data_key_enum = tool.enum.obj_to_enum(data_target || {});
         // 更新编辑器数据键枚举
-        if (data_target) {
+        {
             const cc_enum = tool.enum.enum_to_cc_enum(this._data_key_enum);
 
             // 添加类型
