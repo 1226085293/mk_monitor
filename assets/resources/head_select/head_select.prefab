@@ -416,7 +416,7 @@
     "__type__": "monitor_trigger/trigger",
     "event_param_as": [],
     "event_s": "远程图片",
-    "type_s": "string"
+    "type_s": "string_number"
   },
   {
     "__type__": "cc.PrefabInfo",

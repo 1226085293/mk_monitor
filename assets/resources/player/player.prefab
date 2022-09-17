@@ -278,7 +278,7 @@
     "__type__": "monitor_trigger/trigger",
     "event_param_as": [],
     "event_s": "远程图片",
-    "type_s": "string"
+    "type_s": "string_number"
   },
   {
     "__type__": "cc.Button",
@@ -822,7 +822,7 @@
       }
     ],
     "event_s": "编辑框",
-    "type_s": "string"
+    "type_s": "string_number"
   },
   {
     "__type__": "data_method_string/编辑框",
@@ -992,7 +992,7 @@
       }
     ],
     "event_s": "默认",
-    "type_s": "string"
+    "type_s": "string_number"
   },
   {
     "__type__": "data_method_string/默认",
