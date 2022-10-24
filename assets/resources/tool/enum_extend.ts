@@ -11,7 +11,7 @@ class enum_extend {
             if (typeof enum_[k_s] === 'string') {
                 new_enum_[index_n] = enum_[k_s];
                 new_enum_[enum_[k_s]] = index_n;
-                new_enum[k_s] = index_n++;
+                (new_enum as any)[k_s] = index_n++;
             }
         }
         return cc.Enum(new_enum);
@@ -133,11 +133,11 @@ class enum_extend {
                 args2_.forEach((v) => {
                     const new_enum = {};
 
-                    result_as.push(new_enum);
+                    result_as.push((new_enum as any));
                     for (const k_s in v) {
                         if (isNaN(Number(k_s))) {
-                            new_enum[k_s] = start_n_;
-                            new_enum[start_n_] = k_s;
+                            (new_enum as any)[k_s] = start_n_;
+                            (new_enum as any)[start_n_] = k_s;
                             start_n_++;
                         }
                     }
@@ -159,8 +159,8 @@ class enum_extend {
 
                 for (const k_s in args2_) {
                     if (isNaN(Number(k_s))) {
-                        result[k_s] = start_n_;
-                        result[start_n_] = k_s;
+                        (result as any)[k_s] = start_n_;
+                        (result as any)[start_n_] = k_s;
                         start_n_++;
                     }
                 }

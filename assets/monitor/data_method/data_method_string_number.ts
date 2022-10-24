@@ -1,9 +1,9 @@
 import * as cc from 'cc';
-import tool from '../../tool';
+import tool from '../../resources/tool';
 import monitor from '../monitor';
-const { ccclass, property } = cc._decorator;
+import monitor_trigger_event_param from '../monitor_trigger_event_param';
 
-import { monitor_trigger_, _monitor_trigger } from '../monitor_trigger';
+const { ccclass, property } = cc._decorator;
 
 export function check_type(data_: any): boolean {
     return typeof data_ === 'string' || typeof data_ === 'number';
@@ -11,7 +11,7 @@ export function check_type(data_: any): boolean {
 
 export namespace 默认 {
     @ccclass('data_method_string/默认')
-    export class ccclass_params extends _monitor_trigger.event_param {
+    export class ccclass_params extends monitor_trigger_event_param {
         @property({ displayName: '前缀' })
         head_s = '';
 
@@ -35,7 +35,7 @@ export namespace 默认 {
 
 export namespace 多余省略 {
     @ccclass('data_method_string/多余省略')
-    export class ccclass_params extends _monitor_trigger.event_param {
+    export class ccclass_params extends monitor_trigger_event_param {
         @property({ displayName: '最大字符数量' })
         max_n = 5;
 
@@ -91,7 +91,7 @@ export namespace 远程图片 {
 
 export namespace 编辑框 {
     @ccclass('data_method_string/编辑框')
-    export class ccclass_params extends _monitor_trigger.event_param {
+    export class ccclass_params extends monitor_trigger_event_param {
         @property({ displayName: '同步修改' })
         sync_modify_b = true;
     }

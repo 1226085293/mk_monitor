@@ -1,15 +1,13 @@
 import * as cc from 'cc';
 import { _decorator } from 'cc';
 import { EDITOR } from 'cc/env';
-import tool from '../tool';
+import tool from '../resources/tool';
 import data_method from './data_method';
 import monitor from './monitor';
+import monitor_trigger_event_param from './monitor_trigger_event_param';
 const { ccclass, property } = _decorator;
 
 export namespace _monitor_trigger {
-    @ccclass('monitor_trigger/event_param')
-    export class event_param {}
-
     @ccclass('monitor_trigger/trigger')
     export class trigger {
         /* --------------- static --------------- */
@@ -49,7 +47,7 @@ export namespace _monitor_trigger {
         }
 
         /** 事件 */
-        @property({ displayName: '事件参数', type: [_monitor_trigger.event_param], readonly: true })
+        @property({ displayName: '事件参数', type: [monitor_trigger_event_param], readonly: true })
         event_param_as: any[] = [];
 
         /** 事件名 */
@@ -70,13 +68,13 @@ export namespace _monitor_trigger {
             }
             trigger._init_b = true;
 
-            trigger._data_type_ss = Object.keys(data_method).filter((v_s) => data_method[v_s]);
+            trigger._data_type_ss = Object.keys(data_method).filter((v_s) => (data_method as any)[v_s]);
             trigger.data_type_enum = tool.enum.array_to_enum(trigger._data_type_ss);
             trigger.event_name_tab = Object.create(null);
 
             // 初始化事件名表
             trigger._data_type_ss.forEach((v_s) => {
-                trigger.event_name_tab[v_s] = Object.keys(data_method[v_s]).filter((v2_s) => v2_s !== 'check_type');
+                trigger.event_name_tab[v_s] = Object.keys((data_method as any)[v_s]).filter((v2_s) => v2_s !== 'check_type');
             });
 
             // 初始化视图
@@ -141,7 +139,7 @@ export namespace _monitor_trigger {
             // 更新事件参数
             if (EDITOR) {
                 /** 参数类型 */
-                const ccclass = data_method[this.type_s][this.event_s]?.ccclass_params;
+                const ccclass = (data_method as any)[this.type_s][this.event_s]?.ccclass_params;
 
                 // 更新参数
                 this.event_param_as.splice(0, this.event_param_as.length);
@@ -253,7 +251,7 @@ export class monitor_trigger extends cc.Component {
             }
         }
 
-        const event = data_method[this.event.type_s]?.[this.event.event_s];
+        const event = (data_method as any)[this.event.type_s]?.[this.event.event_s];
 
         if (!event) {
             console.error('触发事件错误', this.event.type_s, this.event.event_s);
@@ -322,7 +320,7 @@ export class monitor_trigger extends cc.Component {
             return false;
         }
         const data_type_s = _monitor_trigger.trigger.data_type_enum[this.event.type_n];
-        const check_type_f: (data: any) => boolean = data_method[data_type_s]?.check_type;
+        const check_type_f: (data: any) => boolean = (data_method as any)[data_type_s]?.check_type;
         const data = this._get_data_from_path(this._user_comp, this._data_key_s.split('.'));
 
         return !check_type_f || check_type_f(data);
@@ -360,7 +358,7 @@ export class monitor_trigger extends cc.Component {
                 let temp: any;
 
                 for (let k_n = 0, len_n = data_path_ss.length; k_n < len_n; ++k_n) {
-                    temp = data_target[data_path_ss[k_n]];
+                    temp = (data_target as any)[data_path_ss[k_n]];
                     if (typeof temp !== 'object' || temp === null) {
                         this._pre_data_key_s = data_path_ss.slice(0, k_n).join('.');
                         break;
@@ -374,7 +372,7 @@ export class monitor_trigger extends cc.Component {
                 (v_s) => (this._pre_data_key_s ? `${this._pre_data_key_s}.` : '') + v_s
             );
             // 避免一级键自动补全二级键
-            if (this._user_comp[this._pre_data_key_s] !== undefined) {
+            if ((this._user_comp as any)[this._pre_data_key_s] !== undefined) {
                 this._filler_character_ss.push(this._pre_data_key_s);
             }
         }
@@ -396,5 +394,5 @@ export class monitor_trigger extends cc.Component {
 export namespace monitor_trigger_ {
     /** 事件参数 */
     @ccclass('monitor_trigger/event_param2')
-    export class event_param extends _monitor_trigger.event_param {}
+    export class event_param extends monitor_trigger_event_param {}
 }

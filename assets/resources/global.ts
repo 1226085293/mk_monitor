@@ -12,5 +12,5 @@ const global = {
 };
 
 // 调试接口
-self['mk_global'] = global;
+(self as any)['mk_global'] = global;
 export default global;

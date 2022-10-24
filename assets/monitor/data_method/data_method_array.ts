@@ -1,8 +1,8 @@
 import * as cc from 'cc';
 import monitor from '../monitor';
-const { ccclass, property } = cc._decorator;
+import monitor_trigger_event_param from '../monitor_trigger_event_param';
 
-import { monitor_trigger_ } from '../monitor_trigger';
+const { ccclass, property } = cc._decorator;
 
 export function check_type(data_: any): boolean {
     return Array.isArray(data_);
@@ -127,7 +127,7 @@ export namespace 默认 {
             this._add_task(() => {
                 const old_children_as = this._init_data.root.children.slice();
 
-                temp_as.forEach((v, k_n) => {
+                (temp_as as any[]).forEach((v, k_n) => {
                     old_children_as[v.index_n].setSiblingIndex(k_n);
                 });
             });
@@ -219,7 +219,7 @@ export namespace 默认 {
     }
 
     @ccclass('data_method_array_common')
-    export class ccclass_params extends monitor_trigger_.event_param {
+    export class ccclass_params extends monitor_trigger_event_param {
         @property({ displayName: '回收 item' })
         recycle_b = true;
 
